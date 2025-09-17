@@ -491,12 +491,17 @@ export default function HomePage() {
                   />
                 </div>
               ) : (
-                <div className="bg-gray-800 border border-gray-700 rounded-lg h-96 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 text-lime-400 mx-auto mb-4" />
-                    <p className="text-gray-300">Mapa de Google Maps</p>
-                    <p className="text-sm text-gray-400 mt-2">La Serena, Chile</p>
-                  </div>
+                <div className="rounded-lg overflow-hidden border border-gray-700">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!4v1758144926183!6m8!1m7!1sE-lOU0ptrthxAmdGVnnijw!2m2!1d-29.9438873166787!2d-71.2499541131328!3f29.55951310448346!4f5.879426573780847!5f1.5363472705037085" 
+                    width="100%" 
+                    height="450" 
+                    style={{border: 0}} 
+                    allowFullScreen 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-96"
+                  />
                 </div>
               )}
             </div>
