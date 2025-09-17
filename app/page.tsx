@@ -474,18 +474,31 @@ export default function HomePage() {
               </Button>
             </div>
 
-            {/* Map Placeholder */}
+            {/* Map */}
             <div>
               <h3 className="font-serif font-bold text-3xl mb-8 text-gray-200">Nuestra Ubicación</h3>
-              <div className="bg-gray-800 border border-gray-700 rounded-lg h-96 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="h-12 w-12 text-lime-400 mx-auto mb-4" />
-                  <p className="text-gray-300">Mapa de Google Maps</p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    {selectedRegion === "chile" ? "La Serena, Chile" : "Zarzal, Colombia"}
-                  </p>
+              {selectedRegion === "colombia" ? (
+                <div className="rounded-lg overflow-hidden border border-gray-700">
+                  <iframe 
+                    src="https://www.google.com/maps/embed?pb=!4v1758144198329!6m8!1m7!1soLMhyrCKlzV2LJVdKecSKg!2m2!1d4.393790780352298!2d-76.07084266430222!3f136.51447795167994!4f-9.32693456541466!5f0.7820865974627469" 
+                    width="100%" 
+                    height="450" 
+                    style={{border: 0}} 
+                    allowFullScreen 
+                    loading="lazy" 
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-96"
+                  />
                 </div>
-              </div>
+              ) : (
+                <div className="bg-gray-800 border border-gray-700 rounded-lg h-96 flex items-center justify-center">
+                  <div className="text-center">
+                    <MapPin className="h-12 w-12 text-lime-400 mx-auto mb-4" />
+                    <p className="text-gray-300">Mapa de Google Maps</p>
+                    <p className="text-sm text-gray-400 mt-2">La Serena, Chile</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
