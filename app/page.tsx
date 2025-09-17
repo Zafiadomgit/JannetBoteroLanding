@@ -450,7 +450,7 @@ export default function HomePage() {
                   {currentLocation.whatsapp && (
                     <div className="flex items-center gap-3">
                       <Phone className="h-5 w-5 text-lime-400" />
-                      <p className="text-gray-300">WhatsApp: {currentLocation.whatsapp}</p>
+                      <p className="text-gray-300">WhatsApp: {currentLocation.phone}</p>
                     </div>
                   )}
 
