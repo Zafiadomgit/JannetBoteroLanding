@@ -320,6 +320,9 @@ export default function HomePage() {
               size="lg"
               variant="outline"
               className="border-gray-400 text-gray-200 hover:bg-gray-800/50 bg-black/30 backdrop-blur-sm shadow-lg"
+              onClick={() => {
+                window.open(`https://www.instagram.com/${currentLocation.instagram}`, "_blank")
+              }}
             >
               <Instagram className="mr-2 h-5 w-5" />
               Síguenos
