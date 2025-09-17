@@ -182,7 +182,10 @@ export default function HomePage() {
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <video key={selectedRegion} autoPlay muted loop playsInline className="w-full h-full object-cover">
-            <source src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/final_Lite-ajwJdgB0h4x5nXN7wvOnKCvRukWDY7.webm" type="video/webm" />
+            <source 
+              src={selectedRegion === "chile" ? "/videos/chile-video.mp4" : "/videos/colombia-video.mp4"} 
+              type="video/mp4" 
+            />
           </video>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
