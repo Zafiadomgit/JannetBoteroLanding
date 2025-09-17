@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -110,6 +110,7 @@ const locationData: Record<Region, LocationData> = {
 export default function HomePage() {
   const [selectedRegion, setSelectedRegion] = useState<Region>("chile")
   const [currentServiceIndex, setCurrentServiceIndex] = useState(0)
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0)
   const currentLocation = locationData[selectedRegion]
 
   const nextService = () => {
@@ -129,6 +130,15 @@ export default function HomePage() {
     }
     return visibleServices
   }
+
+  // Auto-rotate testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length)
+    }, 5000) // Change every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="min-h-screen bg-black">
@@ -392,7 +402,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials Carousel */}
       <section className="py-20 bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -401,25 +411,53 @@ export default function HomePage() {
             </h3>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="text-center bg-gray-900 border-gray-800">
-                <CardHeader>
-                  <div className="flex justify-center mb-2">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-lime-400 text-lime-400" />
-                    ))}
+          <div className="relative">
+            <div className="overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTestimonialIndex * 100}%)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-4">
+                    <div className="max-w-4xl mx-auto">
+                      <Card className="text-center bg-gray-800 border-gray-700">
+                        <CardHeader>
+                          <div className="flex justify-center mb-4">
+                            {[...Array(testimonial.rating)].map((_, i) => (
+                              <Star key={i} className="h-6 w-6 fill-lime-400 text-lime-400" />
+                            ))}
+                          </div>
+                          <CardTitle className="font-serif font-bold text-xl text-gray-200 mb-2">
+                            {testimonial.name}
+                          </CardTitle>
+                          <Badge variant="outline" className="border-lime-500/30 text-lime-400 text-sm">
+                            {testimonial.treatment}
+                          </Badge>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-gray-300 italic text-lg leading-relaxed max-w-2xl mx-auto">
+                            "{testimonial.comment}"
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
-                  <CardTitle className="font-serif font-bold text-gray-200">{testimonial.name}</CardTitle>
-                  <Badge variant="outline" className="border-lime-500/30 text-lime-400">
-                    {testimonial.treatment}
-                  </Badge>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-400 italic">"{testimonial.comment}"</p>
-                </CardContent>
-              </Card>
-            ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Navigation Dots */}
+            <div className="flex justify-center items-center gap-2 mt-8">
+              {testimonials.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentTestimonialIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-colors ${
+                    index === currentTestimonialIndex ? "bg-lime-400" : "bg-gray-600"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -577,5 +615,35 @@ const testimonials = [
     rating: 5,
     comment: "Instalaciones modernas y tecnología de punta. Me siento muy segura aquí.",
     treatment: "Implantología",
+  },
+  {
+    name: "Roberto Silva",
+    rating: 5,
+    comment: "El mejor dentista que he conocido. Tratamiento de implantes sin dolor y resultados perfectos.",
+    treatment: "Implantología",
+  },
+  {
+    name: "Laura Fernández",
+    rating: 5,
+    comment: "La Dra. Daniela hizo mi ortodoncia y quedé encantada. Muy profesional y paciente.",
+    treatment: "Ortodoncia",
+  },
+  {
+    name: "Miguel Torres",
+    rating: 5,
+    comment: "Atención de primera calidad. Tecnología avanzada y personal muy amable.",
+    treatment: "Endodoncia",
+  },
+  {
+    name: "Carmen Ruiz",
+    rating: 5,
+    comment: "Mi rehabilitación oral fue exitosa. Ahora puedo comer sin problemas.",
+    treatment: "Rehabilitación Oral",
+  },
+  {
+    name: "Diego Herrera",
+    rating: 5,
+    comment: "Excelente cirugía oral. Recuperación rápida y sin complicaciones.",
+    treatment: "Cirugía Oral",
   },
 ]
