@@ -136,7 +136,7 @@ const locationData: Record<Region, LocationData> = {
         experience: "8+ años de experiencia",
         description:
           "Especialista en ortodoncia y ortopedia maxilar con enfoque en tratamientos integrales para niños y adultos. Experta en corrección de maloclusiones y desarrollo facial con técnicas avanzadas.",
-        image: "/images/Doctora Daniela.jpg",
+        image: "/images/dra-daniela.jpg",
       },
     ],
     services: [
