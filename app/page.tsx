@@ -85,11 +85,11 @@ const locationData: Record<Region, LocationData> = {
       },
       {
         name: "Dra. Daniela Jaramillo",
-        title: "Especialista en Ortodoncia y Endodoncia",
-        specialties: ["Ortodoncia", "Endodoncia", "Odontopediatría"],
+        title: "Especialista en Ortodoncia y Ortopedia Maxilar",
+        specialties: ["Ortodoncia", "Ortopedia Maxilar", "Odontopediatría"],
         experience: "8+ años de experiencia",
         description:
-          "Especialista en ortodoncia y endodoncia con enfoque en tratamientos mínimamente invasivos. Experta en el manejo de pacientes pediátricos y adultos con técnicas avanzadas.",
+          "Especialista en ortodoncia y ortopedia maxilar con enfoque en tratamientos integrales para niños y adultos. Experta en corrección de maloclusiones y desarrollo facial con técnicas avanzadas.",
         image:
           "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Dra%20Jannet_Daniela.jpg-mcY2wZ3EQO35ymVc1Ub8CSI8gv8o21.jpeg",
       },
@@ -181,11 +181,22 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <video key={selectedRegion} autoPlay muted loop playsInline className="w-full h-full object-cover">
+          <video 
+            key={selectedRegion} 
+            autoPlay 
+            muted 
+            loop 
+            playsInline 
+            className="w-full h-full object-cover"
+            onError={(e) => console.error('Error loading video:', e)}
+            onLoadStart={() => console.log('Video loading started')}
+            onCanPlay={() => console.log('Video can play')}
+          >
             <source 
-              src={selectedRegion === "chile" ? "/videos/chile-video.mp4" : "/videos/colombia-video.mp4"} 
+              src={selectedRegion === "chile" ? "/chile-video.mp4" : "/colombia-video.mp4"} 
               type="video/mp4" 
             />
+            Tu navegador no soporta el elemento video.
           </video>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
