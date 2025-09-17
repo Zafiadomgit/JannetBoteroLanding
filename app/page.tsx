@@ -312,9 +312,17 @@ export default function HomePage() {
             tecnología de última generación.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-lime-500 text-black hover:bg-lime-400 font-semibold shadow-lg">
+            <Button 
+              size="lg" 
+              className="bg-lime-500 text-black hover:bg-lime-400 font-semibold shadow-lg"
+              onClick={() => {
+                if (currentLocation.whatsapp) {
+                  window.open(currentLocation.whatsapp, "_blank")
+                }
+              }}
+            >
               <Phone className="mr-2 h-5 w-5" />
-              Llamar Ahora
+              Agenda tu cita!
             </Button>
             <Button
               size="lg"
