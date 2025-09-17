@@ -19,6 +19,13 @@ interface Doctor {
   image: string
 }
 
+interface Testimonial {
+  name: string
+  rating: number
+  comment: string
+  treatment: string
+}
+
 interface LocationData {
   doctor: string
   address: string
@@ -31,6 +38,7 @@ interface LocationData {
     name: string
     description: string
   }[]
+  testimonials: Testimonial[]
 }
 
 const locationData: Record<Region, LocationData> = {
@@ -63,6 +71,44 @@ const locationData: Record<Region, LocationData> = {
       { name: "Endodoncia", description: "Tratamiento de conductos radiculares" },
       { name: "Implantología", description: "Implantes dentales de última generación" },
       { name: "Cirugía Oral", description: "Procedimientos quirúrgicos especializados" },
+    ],
+    testimonials: [
+      {
+        name: "María González",
+        rating: 5,
+        comment: "Excelente atención en La Serena. La Dra. Botero es muy profesional y los resultados son increíbles.",
+        treatment: "Estética Dental",
+      },
+      {
+        name: "Carlos Rodríguez",
+        rating: 5,
+        comment: "Mi tratamiento de ortodoncia fue perfecto. Ahora tengo la sonrisa que siempre quise.",
+        treatment: "Ortodoncia",
+      },
+      {
+        name: "Ana Martínez",
+        rating: 5,
+        comment: "Las instalaciones en La Serena son modernas y la tecnología es de punta. Me siento muy segura.",
+        treatment: "Implantología",
+      },
+      {
+        name: "Roberto Silva",
+        rating: 5,
+        comment: "El mejor dentista de La Serena. Mis implantes quedaron perfectos sin dolor.",
+        treatment: "Implantología",
+      },
+      {
+        name: "Laura Fernández",
+        rating: 5,
+        comment: "Atención de primera calidad en Chile. Muy profesionales y cuidadosos.",
+        treatment: "Endodoncia",
+      },
+      {
+        name: "Miguel Torres",
+        rating: 5,
+        comment: "Mi rehabilitación oral fue exitosa. Ahora puedo comer sin problemas.",
+        treatment: "Rehabilitación Oral",
+      },
     ],
   },
   colombia: {
@@ -104,6 +150,44 @@ const locationData: Record<Region, LocationData> = {
       { name: "Implantología", description: "Implantes dentales de última generación" },
       { name: "Cirugía Oral", description: "Procedimientos quirúrgicos especializados" },
     ],
+    testimonials: [
+      {
+        name: "Carmen Ruiz",
+        rating: 5,
+        comment: "Excelente atención en Zarzal. La Dra. Daniela hizo mi ortodoncia y quedé encantada con los resultados.",
+        treatment: "Ortodoncia",
+      },
+      {
+        name: "Diego Herrera",
+        rating: 5,
+        comment: "El mejor servicio dental del Valle del Cauca. Tecnología avanzada y personal muy amable.",
+        treatment: "Implantología",
+      },
+      {
+        name: "Sofía Mendoza",
+        rating: 5,
+        comment: "Mi rehabilitación oral fue exitosa. Ahora puedo comer sin problemas y mi sonrisa se ve perfecta.",
+        treatment: "Rehabilitación Oral",
+      },
+      {
+        name: "Andrés López",
+        rating: 5,
+        comment: "Excelente cirugía oral en Zarzal. Recuperación rápida y sin complicaciones.",
+        treatment: "Cirugía Oral",
+      },
+      {
+        name: "Patricia Vargas",
+        rating: 5,
+        comment: "La Dra. Botero es muy profesional. Mi tratamiento de estética dental fue increíble.",
+        treatment: "Estética Dental",
+      },
+      {
+        name: "Ricardo Castro",
+        rating: 5,
+        comment: "Atención de primera calidad en Colombia. Muy profesionales y cuidadosos con cada detalle.",
+        treatment: "Endodoncia",
+      },
+    ],
   },
 }
 
@@ -134,11 +218,16 @@ export default function HomePage() {
   // Auto-rotate testimonials
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length)
+      setCurrentTestimonialIndex((prev) => (prev + 1) % currentLocation.testimonials.length)
     }, 5000) // Change every 5 seconds
 
     return () => clearInterval(interval)
-  }, [])
+  }, [currentLocation.testimonials.length])
+
+  // Reset testimonial index when region changes
+  useEffect(() => {
+    setCurrentTestimonialIndex(0)
+  }, [selectedRegion])
 
   return (
     <div className="min-h-screen bg-black">
@@ -416,7 +505,7 @@ export default function HomePage() {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => setCurrentTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+              onClick={() => setCurrentTestimonialIndex((prev) => (prev - 1 + currentLocation.testimonials.length) % currentLocation.testimonials.length)}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 border-lime-500/30 text-lime-400 hover:bg-lime-500/20 bg-gray-800/80 backdrop-blur-sm"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -425,7 +514,7 @@ export default function HomePage() {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length)}
+              onClick={() => setCurrentTestimonialIndex((prev) => (prev + 1) % currentLocation.testimonials.length)}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 border-lime-500/30 text-lime-400 hover:bg-lime-500/20 bg-gray-800/80 backdrop-blur-sm"
             >
               <ChevronRight className="h-4 w-4" />
@@ -437,7 +526,7 @@ export default function HomePage() {
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentTestimonialIndex * 100}%)` }}
               >
-                {testimonials.map((testimonial, index) => (
+                {currentLocation.testimonials.map((testimonial, index) => (
                   <div key={index} className="w-full flex-shrink-0">
                     <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 md:p-12 rounded-2xl border border-gray-700 shadow-2xl">
                       <div className="text-center">
@@ -479,7 +568,7 @@ export default function HomePage() {
 
             {/* Navigation Dots */}
             <div className="flex justify-center items-center gap-3 mt-8">
-              {testimonials.map((_, index) => (
+              {currentLocation.testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonialIndex(index)}
@@ -630,53 +719,3 @@ export default function HomePage() {
   )
 }
 
-const testimonials = [
-  {
-    name: "María González",
-    rating: 5,
-    comment: "Excelente atención y resultados increíbles. La Dra. Botero es muy profesional y cuidadosa.",
-    treatment: "Estética Dental",
-  },
-  {
-    name: "Carlos Rodríguez",
-    rating: 5,
-    comment: "Mi sonrisa cambió completamente. El tratamiento de ortodoncia fue perfecto.",
-    treatment: "Ortodoncia",
-  },
-  {
-    name: "Ana Martínez",
-    rating: 5,
-    comment: "Instalaciones modernas y tecnología de punta. Me siento muy segura aquí.",
-    treatment: "Implantología",
-  },
-  {
-    name: "Roberto Silva",
-    rating: 5,
-    comment: "El mejor dentista que he conocido. Tratamiento de implantes sin dolor y resultados perfectos.",
-    treatment: "Implantología",
-  },
-  {
-    name: "Laura Fernández",
-    rating: 5,
-    comment: "La Dra. Daniela hizo mi ortodoncia y quedé encantada. Muy profesional y paciente.",
-    treatment: "Ortodoncia",
-  },
-  {
-    name: "Miguel Torres",
-    rating: 5,
-    comment: "Atención de primera calidad. Tecnología avanzada y personal muy amable.",
-    treatment: "Endodoncia",
-  },
-  {
-    name: "Carmen Ruiz",
-    rating: 5,
-    comment: "Mi rehabilitación oral fue exitosa. Ahora puedo comer sin problemas.",
-    treatment: "Rehabilitación Oral",
-  },
-  {
-    name: "Diego Herrera",
-    rating: 5,
-    comment: "Excelente cirugía oral. Recuperación rápida y sin complicaciones.",
-    treatment: "Cirugía Oral",
-  },
-]
