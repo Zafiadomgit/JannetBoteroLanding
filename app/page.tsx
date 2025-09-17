@@ -411,35 +411,66 @@ export default function HomePage() {
             </h3>
           </div>
 
-          <div className="relative">
-            <div className="overflow-hidden">
+          <div className="relative max-w-6xl mx-auto">
+            {/* Navigation Arrows */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setCurrentTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 border-lime-500/30 text-lime-400 hover:bg-lime-500/20 bg-gray-800/80 backdrop-blur-sm"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => setCurrentTestimonialIndex((prev) => (prev + 1) % testimonials.length)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 border-lime-500/30 text-lime-400 hover:bg-lime-500/20 bg-gray-800/80 backdrop-blur-sm"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+
+            {/* Carousel Container */}
+            <div className="overflow-hidden rounded-2xl">
               <div 
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${currentTestimonialIndex * 100}%)` }}
               >
                 {testimonials.map((testimonial, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-4">
-                    <div className="max-w-4xl mx-auto">
-                      <Card className="text-center bg-gray-800 border-gray-700">
-                        <CardHeader>
-                          <div className="flex justify-center mb-4">
-                            {[...Array(testimonial.rating)].map((_, i) => (
-                              <Star key={i} className="h-6 w-6 fill-lime-400 text-lime-400" />
-                            ))}
+                  <div key={index} className="w-full flex-shrink-0">
+                    <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-8 md:p-12 rounded-2xl border border-gray-700 shadow-2xl">
+                      <div className="text-center">
+                        {/* Quote Icon */}
+                        <div className="text-lime-400 text-6xl mb-6 opacity-50">"</div>
+                        
+                        {/* Rating */}
+                        <div className="flex justify-center mb-6">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="h-7 w-7 fill-lime-400 text-lime-400 mx-1" />
+                          ))}
+                        </div>
+
+                        {/* Comment */}
+                        <blockquote className="text-gray-200 text-xl md:text-2xl leading-relaxed mb-8 font-light italic max-w-4xl mx-auto">
+                          {testimonial.comment}
+                        </blockquote>
+
+                        {/* Author Info */}
+                        <div className="flex flex-col items-center">
+                          <div className="w-16 h-16 bg-lime-500/20 rounded-full flex items-center justify-center mb-4">
+                            <span className="text-lime-400 font-bold text-xl">
+                              {testimonial.name.split(' ').map(n => n[0]).join('')}
+                            </span>
                           </div>
-                          <CardTitle className="font-serif font-bold text-xl text-gray-200 mb-2">
+                          <h4 className="font-serif font-bold text-xl text-gray-200 mb-2">
                             {testimonial.name}
-                          </CardTitle>
-                          <Badge variant="outline" className="border-lime-500/30 text-lime-400 text-sm">
+                          </h4>
+                          <Badge className="bg-lime-500/20 text-lime-400 border-lime-500/30 px-4 py-1">
                             {testimonial.treatment}
                           </Badge>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-gray-300 italic text-lg leading-relaxed max-w-2xl mx-auto">
-                            "{testimonial.comment}"
-                          </p>
-                        </CardContent>
-                      </Card>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -447,13 +478,15 @@ export default function HomePage() {
             </div>
 
             {/* Navigation Dots */}
-            <div className="flex justify-center items-center gap-2 mt-8">
+            <div className="flex justify-center items-center gap-3 mt-8">
               {testimonials.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentTestimonialIndex(index)}
-                  className={`w-3 h-3 rounded-full transition-colors ${
-                    index === currentTestimonialIndex ? "bg-lime-400" : "bg-gray-600"
+                  className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                    index === currentTestimonialIndex 
+                      ? "bg-lime-400 scale-125" 
+                      : "bg-gray-600 hover:bg-gray-500"
                   }`}
                 />
               ))}
