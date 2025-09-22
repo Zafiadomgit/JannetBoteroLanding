@@ -291,7 +291,7 @@ export default function HomePage() {
             onCanPlay={() => console.log('Video can play')}
           >
             <source 
-              src={selectedRegion === "chile" ? "/chile-video.mp4" : "/colombia-video.mp4"} 
+              src={selectedRegion === "chile" ? "/Video Chile.mp4" : "/colombia-video.mp4"} 
               type="video/mp4" 
             />
             Tu navegador no soporta el elemento video.
