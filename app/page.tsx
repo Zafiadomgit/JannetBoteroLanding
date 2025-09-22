@@ -136,7 +136,7 @@ const locationData: Record<Region, LocationData> = {
         experience: "8+ años de experiencia",
         description:
           "Especialista en ortodoncia y ortopedia maxilar con enfoque en tratamientos integrales para niños y adultos. Experta en corrección de maloclusiones y desarrollo facial con técnicas avanzadas.",
-        image: "/images/dra-daniela.jpg",
+        image: "/images/Doctora Daniela.jpg",
       },
     ],
     services: [
@@ -468,6 +468,7 @@ export default function HomePage() {
                     alt={doctor.name}
                     fill
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
+                    style={{ objectPosition: 'center top' }}
                   />
                 </div>
                 <CardHeader>
