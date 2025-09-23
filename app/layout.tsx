@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     "Rehabilitación, estética facial y oral, ortodoncia, endodoncia, cirugía e implantología. Dra. Jannett Botero en Chile y Colombia.",
   generator: "v0.app",
   icons: {
-    icon: "/bb-logo.png",
-    shortcut: "/bb-logo.png",
-    apple: "/bb-logo.png",
+    icon: "/images/bb-logo.png",
+    shortcut: "/images/bb-logo.png",
+    apple: "/images/bb-logo.png",
   },
 }
 

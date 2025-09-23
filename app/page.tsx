@@ -37,6 +37,7 @@ interface LocationData {
   services: {
     name: string
     description: string
+    image: string
   }[]
   testimonials: Testimonial[]
 }
@@ -65,12 +66,33 @@ const locationData: Record<Region, LocationData> = {
       {
         name: "Rehabilitación Oral",
         description: "Restauración completa de la función masticatoria",
+        image: "/images/Rehabilitacion oral.webp",
       },
-      { name: "Estética Facial", description: "Tratamientos de rejuvenecimiento facial" },
-      { name: "Ortodoncia", description: "Corrección de malposiciones dentales" },
-      { name: "Endodoncia", description: "Tratamiento de conductos radiculares" },
-      { name: "Implantología", description: "Implantes dentales de última generación" },
-      { name: "Cirugía Oral", description: "Procedimientos quirúrgicos especializados" },
+      { 
+        name: "Estética Facial", 
+        description: "Tratamientos de rejuvenecimiento facial",
+        image: "/images/Estetica facial.webp",
+      },
+      { 
+        name: "Ortodoncia", 
+        description: "Corrección de malposiciones dentales",
+        image: "/images/Ortodoncia.webp",
+      },
+      { 
+        name: "Endodoncia", 
+        description: "Tratamiento de conductos radiculares",
+        image: "/images/Endodoncia.webp",
+      },
+      { 
+        name: "Implantología", 
+        description: "Implantes dentales de última generación",
+        image: "/images/Implamtologia.webp",
+      },
+      { 
+        name: "Cirugía Oral", 
+        description: "Procedimientos quirúrgicos especializados",
+        image: "/images/Cirugia oral.webp",
+      },
     ],
     testimonials: [
       {
@@ -143,12 +165,33 @@ const locationData: Record<Region, LocationData> = {
       {
         name: "Rehabilitación Oral",
         description: "Restauración completa de la función masticatoria",
+        image: "/images/Rehabilitacion oral.webp",
       },
-      { name: "Estética Facial", description: "Tratamientos de rejuvenecimiento facial" },
-      { name: "Ortodoncia", description: "Corrección de malposiciones dentales" },
-      { name: "Endodoncia", description: "Tratamiento de conductos radiculares" },
-      { name: "Implantología", description: "Implantes dentales de última generación" },
-      { name: "Cirugía Oral", description: "Procedimientos quirúrgicos especializados" },
+      { 
+        name: "Estética Facial", 
+        description: "Tratamientos de rejuvenecimiento facial",
+        image: "/images/Estetica facial.webp",
+      },
+      { 
+        name: "Ortodoncia", 
+        description: "Corrección de malposiciones dentales",
+        image: "/images/Ortodoncia.webp",
+      },
+      { 
+        name: "Endodoncia", 
+        description: "Tratamiento de conductos radiculares",
+        image: "/images/Endodoncia.webp",
+      },
+      { 
+        name: "Implantología", 
+        description: "Implantes dentales de última generación",
+        image: "/images/Implamtologia.webp",
+      },
+      { 
+        name: "Cirugía Oral", 
+        description: "Procedimientos quirúrgicos especializados",
+        image: "/images/Cirugia oral.webp",
+      },
     ],
     testimonials: [
       {
@@ -354,8 +397,17 @@ export default function HomePage() {
               {getVisibleServices().map((service, index) => (
                 <Card
                   key={`${service.name}-${currentServiceIndex}-${index}`}
-                  className="group hover:shadow-xl transition-all duration-300 hover:border-lime-500/50 bg-gray-900 border-gray-800"
+                  className="group hover:shadow-xl transition-all duration-300 hover:border-lime-500/50 bg-gray-900 border-gray-800 overflow-hidden"
                 >
+                  <div className="relative h-72 w-full overflow-hidden bg-gray-800">
+                    <Image
+                      src={service.image}
+                      alt={service.name}
+                      fill
+                      className="object-contain group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                  </div>
                   <CardHeader>
                     <CardTitle className="font-serif font-bold text-lg group-hover:text-lime-400 transition-colors text-gray-200">
                       {service.name}
@@ -462,13 +514,12 @@ export default function HomePage() {
                 key={index}
                 className="bg-gray-900 border-gray-800 overflow-hidden group hover:border-lime-500/50 transition-all duration-300"
               >
-                <div className="aspect-square relative overflow-hidden">
+                <div className="relative h-80 w-full overflow-hidden bg-gray-800">
                   <Image
                     src={doctor.image || "/placeholder.svg"}
                     alt={doctor.name}
                     fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                    style={{ objectPosition: 'center top' }}
+                    className="object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <CardHeader>
